@@ -1,0 +1,28 @@
+{
+  "name": "@clync/mono",
+  "version": "0.0.0",
+  "private": true,
+  "license": "ISC",
+  "scripts": {
+    "build": "lerna run build",
+    "bundle": "lerna run bundle",
+    "test": "lerna run test"
+  },
+  "devDependencies": {
+    "lerna": "^3.22.1"
+  },
+  "workspaces": [
+    "packages/**"
+  ],
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sjmeverett/clync.git"
+  },
+  "author": "Stewart Everett",
+  "bugs": {
+    "url": "https://github.com/sjmeverett/clync/issues"
+  },
+  "homepage": "https://github.com/sjmeverett/clync#readme",
+  "description": ""
+}
