@@ -4,6 +4,9 @@
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "ISC",
   "scripts": {
     "build": "tsc",
@@ -38,5 +41,5 @@
     "url": "https://github.com/sjmeverett/clync/issues"
   },
   "homepage": "https://github.com/sjmeverett/clync/tree/master/packages/define",
-  "gitHead": "4e6bba93973dcfd66d5032cc1e7a4caefee822bf"
+  "gitHead": "911df3fa3981cd916f35f540a5b42bb874bae365"
 }
