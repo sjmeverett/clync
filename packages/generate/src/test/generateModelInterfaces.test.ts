@@ -1,4 +1,4 @@
-import { defineCustomType, defineModel } from '@clync/define';
+import { defineCustomType, defineModel } from '@sjmeverett/clync-define';
 import { generateModelInterfaces } from '../generateModelInterfaces';
 
 const keyType = defineCustomType('KeyType', {

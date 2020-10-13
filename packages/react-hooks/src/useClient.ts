@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import { Client } from '@clync/client';
+import { Client } from '@sjmeverett/clync-client';
 
 export const ClientContext = createContext<Client | null>(null);
 

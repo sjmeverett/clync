@@ -1,5 +1,5 @@
 import { generateClient } from '../generateClient';
-import { defineAction, defineModel } from '@clync/define';
+import { defineAction, defineModel } from '@sjmeverett/clync-define';
 
 const widget = defineModel('Widget', {
   _id: 'string',
@@ -38,7 +38,7 @@ test('works as expected', () => {
       data: Widget;
     }
 
-    import { Client } from '@clynk/client';
+    import { Client } from '@sjmeverett/clync-client';
     export function updateWidget(client: Client, params: UpdateWidgetParams): Promise<UpdateWidgetResult> {
       return client.request({
         action: 'UpdateWidget',

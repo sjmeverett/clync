@@ -1,4 +1,4 @@
-import { Client } from '@clync/client';
+import { Client } from '@sjmeverett/clync-client';
 import { useCallback, useState } from 'react';
 import { useClient } from './useClient';
 

@@ -8,5 +8,5 @@ export default {
     sourcemap: true,
   },
   plugins: [sourcemaps()],
-  external: ['tslib', '@clync/define'],
+  external: ['tslib', '@sjmeverett/clync-define'],
 };

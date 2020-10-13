@@ -1,4 +1,4 @@
-import { defineCustomType, defineModel } from '@clync/define';
+import { defineCustomType, defineModel } from '@sjmeverett/clync-define';
 import dayjs from 'dayjs';
 import { convertModel } from '../convertModel';
 import { registerTypeConverter } from '../registerTypeConverter';

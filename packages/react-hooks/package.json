@@ -1,5 +1,5 @@
 {
-  "name": "@clync/react-hooks",
+  "name": "@sjmeverett/clync-react-hooks",
   "version": "0.1.0",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -32,7 +32,7 @@
     "typescript": "^4.0.3"
   },
   "dependencies": {
-    "@clync/client": "^0.1.0",
+    "@sjmeverett/clync-client": "^0.1.0",
     "tslib": "^2.0.1"
   },
   "peerDependencies": {
@@ -46,5 +46,6 @@
   "bugs": {
     "url": "https://github.com/sjmeverett/clync/issues"
   },
-  "homepage": "https://github.com/sjmeverett/clync/tree/master/packages/react-hooks"
+  "homepage": "https://github.com/sjmeverett/clync/tree/master/packages/react-hooks",
+  "gitHead": "4e6bba93973dcfd66d5032cc1e7a4caefee822bf"
 }

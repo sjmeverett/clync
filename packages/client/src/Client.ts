@@ -1,4 +1,4 @@
-import { FieldDescriptor } from '@clync/convert';
+import { FieldDescriptor } from '@sjmeverett/clync-convert';
 
 export interface RequestOptions {
   action: string;

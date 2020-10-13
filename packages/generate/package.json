@@ -1,5 +1,5 @@
 {
-  "name": "@clync/generate",
+  "name": "@sjmeverett/clync-generate",
   "version": "0.1.0",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -15,7 +15,7 @@
     "@babel/core": "^7.11.4",
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-typescript": "^7.10.4",
-    "@clync/define": "^0.1.0",
+    "@sjmeverett/clync-define": "^0.1.0",
     "@types/jest": "^26.0.14",
     "@types/node": "^14.11.2",
     "babel-jest": "^26.3.0",
@@ -31,7 +31,7 @@
     "tslib": "^2.0.1"
   },
   "peerDependencies": {
-    "@clync/define": "*"
+    "@sjmeverett/clync-define": "*"
   },
   "repository": {
     "type": "git",
@@ -41,5 +41,6 @@
   "bugs": {
     "url": "https://github.com/sjmeverett/clync/issues"
   },
-  "homepage": "https://github.com/sjmeverett/clync/tree/master/packages/generate"
+  "homepage": "https://github.com/sjmeverett/clync/tree/master/packages/generate",
+  "gitHead": "4e6bba93973dcfd66d5032cc1e7a4caefee822bf"
 }

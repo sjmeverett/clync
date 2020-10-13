@@ -1,4 +1,4 @@
-import { Action, isModel, Model } from '@clync/define';
+import { Action, isModel, Model } from '@sjmeverett/clync-define';
 
 export function getActionModels(
   action: Action<any, any, any>,

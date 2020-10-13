@@ -5,7 +5,7 @@ import {
   ModelType,
   models,
   isCustomType,
-} from '@clync/define';
+} from '@sjmeverett/clync-define';
 
 export type TypeDescriptor = TypeReference | ModelType;
 

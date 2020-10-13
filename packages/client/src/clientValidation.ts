@@ -1,5 +1,5 @@
 import { Client, RequestOptions } from './Client';
-import { convertOrThrow } from '@clync/convert';
+import { convertOrThrow } from '@sjmeverett/clync-convert';
 
 export function clientValidation(client: Client): Client {
   return {

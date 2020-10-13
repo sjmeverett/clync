@@ -1,5 +1,5 @@
 {
-  "name": "@clync/define",
+  "name": "@sjmeverett/clync-define",
   "version": "0.1.0",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -37,5 +37,6 @@
   "bugs": {
     "url": "https://github.com/sjmeverett/clync/issues"
   },
-  "homepage": "https://github.com/sjmeverett/clync/tree/master/packages/define"
+  "homepage": "https://github.com/sjmeverett/clync/tree/master/packages/define",
+  "gitHead": "4e6bba93973dcfd66d5032cc1e7a4caefee822bf"
 }

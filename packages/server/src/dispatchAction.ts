@@ -1,5 +1,5 @@
-import { Action } from '@clync/define';
-import { convertOrThrow } from '@clync/convert';
+import { Action } from '@sjmeverett/clync-define';
+import { convertOrThrow } from '@sjmeverett/clync-convert';
 import { ActionContext } from './bindDataFns';
 
 export async function dispatchAction<TData>(

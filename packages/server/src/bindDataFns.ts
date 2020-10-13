@@ -1,4 +1,4 @@
-import { DataFnType, isDataFn } from '@clync/define';
+import { DataFnType, isDataFn } from '@sjmeverett/clync-define';
 
 export type ActionContext<T, P extends keyof T = keyof T> = {
   [K in P]: DataFnType<T[K]>;

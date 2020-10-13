@@ -1,4 +1,4 @@
-import { defineAction, defineModel } from '@clync/define';
+import { defineAction, defineModel } from '@sjmeverett/clync-define';
 import { getActionModels } from '../getActionModels';
 
 const widget = defineModel('Widget', {

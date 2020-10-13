@@ -7,7 +7,7 @@ import {
   isModelType,
   isIntrinsicType,
   isCustomType,
-} from '@clync/define';
+} from '@sjmeverett/clync-define';
 import { getActionModels } from './getActionModels';
 import {
   generateModelInterfaces,
@@ -19,7 +19,7 @@ export function generateClient(actions: Action<any, any, any>[]) {
   const models = new Set<Model>();
   const imports = new Set<string>();
 
-  let client = `import { Client } from '@clynk/client';`;
+  let client = `import { Client } from '@sjmeverett/clync-client';`;
 
   for (const action of actions) {
     getActionModels(action, models);

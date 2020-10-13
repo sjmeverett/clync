@@ -6,7 +6,7 @@ import {
   ModelType,
   isModelType,
   unabbreviateField,
-} from '@clync/define';
+} from '@sjmeverett/clync-define';
 
 export function generateModelInterface(
   model: Model,

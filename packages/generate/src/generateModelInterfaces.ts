@@ -1,4 +1,4 @@
-import { Model } from '@clync/define';
+import { Model } from '@sjmeverett/clync-define';
 import { generateModelInterface } from './generateModelInterface';
 
 export function generateModelInterfaces(
