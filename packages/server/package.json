@@ -1,5 +1,5 @@
 {
-  "name": "@sjmeverett/clynk-server",
+  "name": "@sjmeverett/clync-server",
   "version": "0.2.1",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
