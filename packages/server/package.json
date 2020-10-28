@@ -1,6 +1,6 @@
 {
   "name": "@sjmeverett/clync-server",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -31,7 +31,7 @@
     "typescript": "^4.0.3"
   },
   "dependencies": {
-    "@sjmeverett/clync-convert": "^0.2.2",
+    "@sjmeverett/clync-convert": "^0.2.3",
     "tslib": "^2.0.1"
   },
   "peerDependencies": {
