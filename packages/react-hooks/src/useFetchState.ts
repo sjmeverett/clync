@@ -1,5 +1,6 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { ApiFn, ApiFnParams, ApiFnResult, useApi } from './useApi';
+import useDeepCompareEffect from 'use-deep-compare-effect';
 
 export function useFetchState<T extends ApiFn>(
   fn: T,
@@ -12,7 +13,7 @@ export function useFetchState<T extends ApiFn>(
   const [state, setState] = useState<ApiFnResult<T>>();
   const [fetch, loading] = useApi(fn);
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     if (!params) return;
 
     fetch(params).then((result) => {

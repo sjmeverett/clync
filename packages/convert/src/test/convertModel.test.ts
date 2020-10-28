@@ -31,6 +31,10 @@ const modelArray = defineModel('ModelArray', {
   },
 });
 
+const optionalSubModel = defineModel('OptionalSubModel', {
+  widget: { type: widget, nullable: true },
+});
+
 registerTypeConverter('DateType', {
   parse(value: number) {
     return new Date(value);
@@ -114,4 +118,12 @@ test('error on expected array', () => {
     path: 'array',
     message: 'Expected array',
   });
+});
+
+test('does not error on subfields if parent model is not required', () => {
+  const [errors] = convertModel('format', optionalSubModel.schema, {
+    widget: null,
+  });
+
+  expect(errors).toHaveLength(0);
 });
