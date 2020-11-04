@@ -26,7 +26,7 @@ export function useApi<T extends ApiFn>(
       setLoading((loading) => loading + 1);
 
       try {
-        return fn(client, params);
+        return await fn(client, params);
       } finally {
         setLoading((loading) => loading - 1);
       }
