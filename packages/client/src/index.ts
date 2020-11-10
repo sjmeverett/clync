@@ -1,3 +1,2 @@
 export * from './Client';
-export * from './clientValidation';
-export * from './createClient';
+export * from './SimpleCache';
