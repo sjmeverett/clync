@@ -38,14 +38,14 @@ test('works as expected', () => {
       data: Widget;
     }
 
-    import { Client } from '@sjmeverett/clync-client';
-    export function updateWidget(client: Client, params: UpdateWidgetParams): Promise<UpdateWidgetResult> {
-      return client.request({
+    import { RequestOptions } from '@sjmeverett/clync-client';
+    export function updateWidgetAction(params: UpdateWidgetParams): RequestOptions<UpdateWidgetParams, UpdateWidgetResult> {
+      return {
         action: 'UpdateWidget',
         paramsType: {\\"type\\":{\\"kind\\":\\"Model\\",\\"name\\":\\"UpdateWidgetParams\\"},\\"required\\":true},
         resultType: {\\"type\\":{\\"kind\\":\\"Model\\",\\"name\\":\\"UpdateWidgetResult\\"},\\"required\\":true},
         params
-      });
+      };
     }
 
     "

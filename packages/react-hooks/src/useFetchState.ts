@@ -4,7 +4,7 @@ import useDeepCompareEffect from 'use-deep-compare-effect';
 import { useClient } from './useClient';
 
 export function useFetchState<T extends ApiFn>(
-  fn: T,
+  action: T,
   params?: ApiFnParams<T> | null,
 ): [
   ApiFnResult<T> | undefined,
@@ -18,7 +18,7 @@ export function useFetchState<T extends ApiFn>(
   useDeepCompareEffect(() => {
     if (!params || !client) return;
 
-    return client.subscribe(params, (result, loading) => {
+    return client.subscribe(action(params), (result, loading) => {
       setState(result);
 
       if (loading !== undefined) {

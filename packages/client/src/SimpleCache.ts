@@ -5,11 +5,14 @@ export class SimpleCache implements Cache {
 
   constructor(private readonly size: number) {}
 
-  read(request: RequestOptions) {
+  read<TParams, TResult>(request: RequestOptions<TParams, TResult>): TResult {
     return this.cache.get(this.getKey(request));
   }
 
-  write(request: RequestOptions, value: any): void {
+  write<TParams, TResult>(
+    request: RequestOptions<TParams, TResult>,
+    value: TResult,
+  ): void {
     this.cache.set(this.getKey(request), value);
 
     if (this.cache.size > this.size) {
@@ -17,7 +20,7 @@ export class SimpleCache implements Cache {
     }
   }
 
-  private getKey(request: RequestOptions) {
+  private getKey(request: RequestOptions<any, any>) {
     return JSON.stringify(request);
   }
 }

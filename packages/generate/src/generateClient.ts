@@ -19,7 +19,7 @@ export function generateClient(actions: Action<any, any, any>[]) {
   const models = new Set<Model>();
   const imports = new Set<string>();
 
-  let client = `import { Client } from '@sjmeverett/clync-client';`;
+  let client = `import { RequestOptions } from '@sjmeverett/clync-client';`;
 
   for (const action of actions) {
     getActionModels(action, models);
@@ -34,13 +34,13 @@ export function generateClient(actions: Action<any, any, any>[]) {
     const resultType = getFieldType(action.result, imports, 'server');
 
     client += `
-export function ${name}(client: Client, params: ${paramsType}): Promise<${resultType}> {
-  return client.request({
+export function ${name}Action(params: ${paramsType}): RequestOptions<${paramsType}, ${resultType}> {
+  return {
     action: '${action.name}',
     paramsType: ${getJsonFieldDescriptor(action.params)},
     resultType: ${getJsonFieldDescriptor(action.result)},
     params
-  });
+  };
 }
 `;
   }

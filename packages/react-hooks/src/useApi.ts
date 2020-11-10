@@ -1,18 +1,17 @@
-import { Client } from '@sjmeverett/clync-client';
+import { RequestOptions } from '@sjmeverett/clync-client';
 import { useCallback, useState } from 'react';
 import { useClient } from './useClient';
 
-export type ApiFn<Params = any, Result = any> = (
-  client: Client,
-  params: Params,
-) => Promise<Result>;
+export type ApiFn<TParams = any, TResult = any> = (
+  params: TParams,
+) => RequestOptions<TParams, TResult>;
 
 export type ApiFnParams<T> = T extends ApiFn<infer P> ? P : never;
 
 export type ApiFnResult<T> = T extends ApiFn<any, infer R> ? R : never;
 
 export function useApi<T extends ApiFn>(
-  fn: T,
+  action: T,
 ): [(params: ApiFnParams<T>) => Promise<ApiFnResult<T>>, boolean] {
   const client = useClient();
   const [loading, setLoading] = useState(0);
@@ -26,12 +25,12 @@ export function useApi<T extends ApiFn>(
       setLoading((loading) => loading + 1);
 
       try {
-        return await fn(client, params);
+        return await client.request(action(params));
       } finally {
         setLoading((loading) => loading - 1);
       }
     },
-    [client, fn],
+    [client, action],
   );
 
   return [call, loading > 0];

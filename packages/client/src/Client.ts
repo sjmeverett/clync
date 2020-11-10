@@ -1,28 +1,33 @@
 import { convertOrThrow, FieldDescriptor } from '@sjmeverett/clync-convert';
 
-export interface RequestOptions {
+export interface RequestOptions<TParams, TResult> {
   action: string;
   paramsType: FieldDescriptor;
   resultType: FieldDescriptor;
-  params: any;
+  params: TParams;
 }
 
 export interface Cache {
-  read(request: RequestOptions): any;
-  write(request: RequestOptions, value: any): void;
+  read<TParams, TResult>(request: RequestOptions<TParams, TResult>): TResult;
+  write<TParams, TResult>(
+    request: RequestOptions<TParams, TResult>,
+    value: TResult,
+  ): void;
 }
 
 export interface ClientFetch {
-  (request: RequestOptions): Promise<any>;
+  <TParams, TResult>(request: RequestOptions<TParams, TResult>): Promise<
+    TResult
+  >;
 }
 
-export interface SubscribeCallback {
-  (data: any, loading?: boolean): void;
+export interface SubscribeCallback<TResult> {
+  (data: TResult, loading?: boolean): void;
 }
 
 export interface ClientSubscriber {
-  request: RequestOptions;
-  callback: SubscribeCallback;
+  request: RequestOptions<any, any>;
+  callback: SubscribeCallback<any>;
 }
 
 export class Client {
@@ -33,7 +38,9 @@ export class Client {
     private readonly cache?: Cache,
   ) {}
 
-  async request(request: RequestOptions) {
+  async request<TParams, TResult>(
+    request: RequestOptions<TParams, TResult>,
+  ): Promise<TResult> {
     const params = convertOrThrow('format', request.paramsType, request.params);
 
     const result = await this._request({ ...request, params });
@@ -41,7 +48,10 @@ export class Client {
     return convertOrThrow('parse', request.resultType, result);
   }
 
-  subscribe(request: RequestOptions, callback: SubscribeCallback): () => void {
+  subscribe<TParams, TResult>(
+    request: RequestOptions<TParams, TResult>,
+    callback: SubscribeCallback<TResult>,
+  ): () => void {
     const subscriber = { request, callback };
     this.subscribers.add(subscriber);
     this.runSubscriber(subscriber);
