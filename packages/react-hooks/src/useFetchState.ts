@@ -19,7 +19,9 @@ export function useFetchState<T extends ApiFn>(
     if (!params || !client) return;
 
     return client.subscribe(action(params), (result, loading) => {
-      setState(result);
+      if (result !== undefined) {
+        setState(result);
+      }
 
       if (loading !== undefined) {
         setLoading(loading);
