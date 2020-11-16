@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import { ApiFn, ApiFnParams, ApiFnResult } from './useApi';
-import useDeepCompareEffect from 'use-deep-compare-effect';
+import { useDeepCompareEffectNoCheck } from 'use-deep-compare-effect';
 import { useClient } from './useClient';
 
 export function useFetchState<T extends ApiFn>(
@@ -15,7 +15,7 @@ export function useFetchState<T extends ApiFn>(
   const [loading, setLoading] = useState(false);
   const [state, setState] = useState(undefined);
 
-  useDeepCompareEffect(() => {
+  useDeepCompareEffectNoCheck(() => {
     if (!params || !client) return;
 
     return client.subscribe(action(params), (result, loading) => {
