@@ -5,6 +5,7 @@ export interface RequestOptions<TParams, TResult> {
   paramsType: FieldDescriptor;
   resultType: FieldDescriptor;
   params: TParams;
+  idempotent?: boolean;
 }
 
 export interface Cache {
@@ -52,9 +53,13 @@ export class Client {
     request: RequestOptions<TParams, TResult>,
     callback: SubscribeCallback<TResult>,
   ): () => void {
+    if (!request.idempotent) {
+      throw new Error(`${request.action} is not idempotent, cannot subscribe`);
+    }
+
     const subscriber = { request, callback };
     this.subscribers.add(subscriber);
-    this.runSubscriber(subscriber);
+    this.refresh(request.action);
 
     return () => {
       this.subscribers.delete(subscriber);
@@ -75,11 +80,18 @@ export class Client {
 
   private async runSubscriber(subscriber: ClientSubscriber) {
     try {
-      const cached = this.cache?.read(subscriber.request);
+      const cached = subscriber.request.idempotent
+        ? this.cache?.read(subscriber.request)
+        : undefined;
+
       subscriber.callback(cached, true);
 
       const result = await this.request(subscriber.request);
-      this.cache?.write(subscriber.request, result);
+
+      if (subscriber.request.idempotent) {
+        this.cache?.write(subscriber.request, result);
+      }
+
       subscriber.callback(result, false);
     } catch (e) {
       subscriber.callback(undefined, false);

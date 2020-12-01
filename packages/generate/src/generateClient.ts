@@ -39,7 +39,8 @@ export function ${name}Action(params: ${paramsType}): RequestOptions<${paramsTyp
     action: '${action.name}',
     paramsType: ${getJsonFieldDescriptor(action.params)},
     resultType: ${getJsonFieldDescriptor(action.result)},
-    params
+    params,
+    idempotent: ${action.idempotent ? 'true' : 'false'}
   };
 }
 `;

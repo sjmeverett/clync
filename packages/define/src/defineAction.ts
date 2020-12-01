@@ -7,7 +7,7 @@ import {
 export interface Action<Context, Params = any, Result = any> {
   kind: 'action';
   name: string;
-  mutation?: boolean;
+  idempotent?: boolean;
   params: ModelField;
   result: ModelField;
   handler: ActionHandler<Context, Params, Result>;

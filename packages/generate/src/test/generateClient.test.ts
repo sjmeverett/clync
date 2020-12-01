@@ -44,7 +44,8 @@ test('works as expected', () => {
         action: 'UpdateWidget',
         paramsType: {\\"type\\":{\\"kind\\":\\"Model\\",\\"name\\":\\"UpdateWidgetParams\\"},\\"required\\":true},
         resultType: {\\"type\\":{\\"kind\\":\\"Model\\",\\"name\\":\\"UpdateWidgetResult\\"},\\"required\\":true},
-        params
+        params,
+        idempotent: false
       };
     }
 
