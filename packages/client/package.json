@@ -45,6 +45,5 @@
   "bugs": {
     "url": "https://github.com/sjmeverett/clync/issues"
   },
-  "homepage": "https://github.com/sjmeverett/clync/tree/master/packages/client",
-  "gitHead": "911df3fa3981cd916f35f540a5b42bb874bae365"
+  "homepage": "https://github.com/sjmeverett/clync/tree/master/packages/client"
 }
