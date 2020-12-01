@@ -9,11 +9,19 @@ export interface RequestOptions<TParams, TResult> {
 }
 
 export interface Cache {
-  read<TParams, TResult>(request: RequestOptions<TParams, TResult>): TResult;
+  read<TParams, TResult>(
+    request: RequestOptions<TParams, TResult>,
+  ): CacheResult<TResult> | undefined;
+
   write<TParams, TResult>(
     request: RequestOptions<TParams, TResult>,
     value: TResult,
   ): void;
+}
+
+export interface CacheResult<T> {
+  result: T;
+  stale?: boolean;
 }
 
 export interface ClientFetch {
@@ -84,15 +92,18 @@ export class Client {
         ? this.cache?.read(subscriber.request)
         : undefined;
 
-      subscriber.callback(cached, true);
+      const stale = cached?.stale !== false;
+      subscriber.callback(cached?.result, stale);
 
-      const result = await this.request(subscriber.request);
+      if (stale) {
+        const result = await this.request(subscriber.request);
 
-      if (subscriber.request.idempotent) {
-        this.cache?.write(subscriber.request, result);
+        if (subscriber.request.idempotent) {
+          this.cache?.write(subscriber.request, result);
+        }
+
+        subscriber.callback(result, false);
       }
-
-      subscriber.callback(result, false);
     } catch (e) {
       subscriber.callback(undefined, false);
       throw e;
