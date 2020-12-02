@@ -18,10 +18,14 @@ interface CacheSubscriber {
 }
 
 export class NormalisingCache implements Cache {
-  private cache = new Map<string, CacheEntry>();
+  cache = new Map<string, CacheEntry>();
   private subscribers = new Set<CacheSubscriber>();
 
-  constructor(private idKeys: string[], private ttl?: number) {}
+  constructor(
+    private readonly size: number,
+    private idKeys: string[],
+    private ttl?: number,
+  ) {}
 
   read<TParams, TResult>(
     request: RequestOptions<TParams, TResult>,
@@ -67,6 +71,10 @@ export class NormalisingCache implements Cache {
     // store the whole request result if the request is idempotent
     if (request.idempotent) {
       this.cache.set(cacheKey, { value, keys, timestamp: Date.now() });
+
+      if (this.cache.size > this.size) {
+        this.cache.delete(this.cache.keys().next().value);
+      }
     }
 
     // update subscribers to affected keys
@@ -116,9 +124,15 @@ export class NormalisingCache implements Cache {
       keys.push(key);
 
       if (existing) {
+        existing.timestamp = Date.now();
         return Object.assign(existing.value, value);
       } else {
         this.cache.set(key, { value, timestamp: Date.now() });
+
+        if (this.cache.size > this.size) {
+          this.cache.delete(this.cache.keys().next().value);
+        }
+
         return value;
       }
     }
