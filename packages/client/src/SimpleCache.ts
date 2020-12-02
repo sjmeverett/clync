@@ -26,12 +26,20 @@ export class SimpleCache implements Cache {
   write<TParams, TResult>(
     request: RequestOptions<TParams, TResult>,
     value: TResult,
-  ): void {
-    this.cache.set(this.getKey(request), { value, timestamp: Date.now() });
+  ): TResult {
+    if (request.idempotent) {
+      this.cache.set(this.getKey(request), { value, timestamp: Date.now() });
 
-    if (this.cache.size > this.size) {
-      this.cache.delete(this.cache.keys().next().value);
+      if (this.cache.size > this.size) {
+        this.cache.delete(this.cache.keys().next().value);
+      }
     }
+
+    return value;
+  }
+
+  subscribe(): () => void {
+    return () => {};
   }
 
   private getKey(request: RequestOptions<any, any>) {

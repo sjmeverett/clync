@@ -16,7 +16,12 @@ export interface Cache {
   write<TParams, TResult>(
     request: RequestOptions<TParams, TResult>,
     value: TResult,
-  ): void;
+  ): TResult;
+
+  subscribe<TParams, TResult>(
+    request: RequestOptions<TParams, TResult>,
+    callback: SubscribeCallback<TResult>,
+  ): () => void;
 }
 
 export interface CacheResult<T> {
@@ -67,10 +72,16 @@ export class Client {
 
     const subscriber = { request, callback };
     this.subscribers.add(subscriber);
+    const unsubscribeCache = this.cache?.subscribe(request, callback);
+
     this.refresh(request.action);
 
     return () => {
       this.subscribers.delete(subscriber);
+
+      if (unsubscribeCache) {
+        unsubscribeCache();
+      }
     };
   }
 
@@ -96,11 +107,11 @@ export class Client {
       subscriber.callback(cached?.result, stale);
 
       if (stale) {
-        const result = await this.request(subscriber.request);
+        const fetchResult = await this.request(subscriber.request);
 
-        if (subscriber.request.idempotent) {
-          this.cache?.write(subscriber.request, result);
-        }
+        const result = this.cache
+          ? this.cache.write(subscriber.request, fetchResult)
+          : fetchResult;
 
         subscriber.callback(result, false);
       }

@@ -46,6 +46,12 @@ export function ${name}Action(params: ${paramsType}): RequestOptions<${paramsTyp
 `;
   }
 
+  client += `
+export type ActionName = ${actions
+    .map((action) => `'${action.name}'`)
+    .join(' | ')};
+`;
+
   const interfaces = generateModelInterfaces(
     Array.from(models),
     'client',

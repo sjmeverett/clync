@@ -49,6 +49,8 @@ test('works as expected', () => {
       };
     }
 
+    export type ActionName = 'UpdateWidget';
+
     "
   `);
 });
