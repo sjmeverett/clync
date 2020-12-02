@@ -5,6 +5,7 @@ import {
   SubscribeCallback,
   Cache,
 } from './Client';
+import clone from 'lodash.clone';
 
 interface CacheEntry {
   value: any;
@@ -93,7 +94,9 @@ export class NormalisingCache implements Cache {
           (subscriber) => subscriber.cacheKey === key,
         );
 
-        updating.map((susbcriber) => susbcriber.callback(entry.value));
+        const value = clone(entry.value);
+
+        updating.map((susbcriber) => susbcriber.callback(value));
       }
     }
 
