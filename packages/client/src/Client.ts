@@ -57,7 +57,11 @@ export class Client {
   ): Promise<TResult> {
     const params = convertOrThrow('format', request.paramsType, request.params);
 
-    const result = await this._request({ ...request, params });
+    const fetchResult = await this._request({ ...request, params });
+
+    const result = this.cache
+      ? this.cache.write(request, fetchResult)
+      : fetchResult;
 
     return convertOrThrow('parse', request.resultType, result);
   }
@@ -107,12 +111,7 @@ export class Client {
       subscriber.callback(cached?.result, stale);
 
       if (stale) {
-        const fetchResult = await this.request(subscriber.request);
-
-        const result = this.cache
-          ? this.cache.write(subscriber.request, fetchResult)
-          : fetchResult;
-
+        const result = await this.request(subscriber.request);
         subscriber.callback(result, false);
       }
     } catch (e) {
