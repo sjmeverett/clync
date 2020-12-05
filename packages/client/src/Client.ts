@@ -96,9 +96,9 @@ export class Client {
       ? subscribers.filter((x) => x.request.action === action)
       : subscribers;
 
-    for (const subscriber of filteredSubscribers) {
-      await this.runSubscriber(subscriber);
-    }
+    return Promise.all(
+      filteredSubscribers.map((subscriber) => this.runSubscriber(subscriber)),
+    );
   }
 
   private async runSubscriber(subscriber: ClientSubscriber) {
